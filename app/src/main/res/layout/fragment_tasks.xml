@@ -20,8 +20,8 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:dividerInsetStart="16dp"
-            app:dividerInsetEnd="16dp"
+            app:dividerThickness="4dp"
+            android:background="@color/grey_white"
             />
 
         <ListView
