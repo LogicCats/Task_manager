@@ -3,11 +3,15 @@ package com.example.taskmanager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+import android.content.Intent;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +27,12 @@ public class SettingsFragment extends Fragment {
     private Button buttonLogin;
     private Button buttonChangeTheme;
     private Button buttonWipeData;
+    private Button buttonChangeNotification;
+    private Button buttonAboutApp; // Добавляем кнопку для версии приложения
+
+    private Button buttonTermsOfService;
+
+    private Button buttonPrivacyPolicy;
 
     @Nullable
     @Override
@@ -33,11 +43,29 @@ public class SettingsFragment extends Fragment {
         buttonLogin = view.findViewById(R.id.accountLogin);
         buttonChangeTheme = view.findViewById(R.id.ChangeTheme);
         buttonWipeData = view.findViewById(R.id.wipe_data);
+        buttonChangeNotification = view.findViewById(R.id.ChangeNotification);
+        buttonAboutApp = view.findViewById(R.id.about_app); // Инициализируем кнопку для версии приложения
+        buttonTermsOfService = view.findViewById(R.id.terms_of_service);
+        buttonPrivacyPolicy = view.findViewById(R.id.politics);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navigateToRegistrationFragment();
+            }
+        });
+
+        buttonTermsOfService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToTermsFragment();
+            }
+        });
+
+        buttonPrivacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToPrivacyPolicyFragment();
             }
         });
 
@@ -61,6 +89,22 @@ public class SettingsFragment extends Fragment {
                 showWipeDataDialog();
             }
         });
+
+        buttonChangeNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAppNotificationSettings();
+            }
+        });
+
+        buttonAboutApp.setOnClickListener(new View.OnClickListener() { // Устанавливаем обработчик нажатия для кнопки версии приложения
+            @Override
+            public void onClick(View v) {
+                showAppVersion();
+            }
+        });
+
+
 
         return view;
     }
@@ -137,4 +181,47 @@ public class SettingsFragment extends Fragment {
         // Перезапуск приложения
         requireActivity().recreate();
     }
+
+    private void openAppNotificationSettings() {
+        Intent intent = new Intent();
+        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        intent.putExtra("android.provider.extra.APP_PACKAGE", requireActivity().getPackageName());
+        startActivity(intent);
+    }
+
+    private void showAppVersion() {
+        // Получаем версию приложения из манифеста
+        String versionName = "";
+        try {
+            versionName = requireActivity().getPackageManager().getPackageInfo(requireActivity().getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // Отображаем версию приложения в диалоговом окне
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Версия приложения")
+                .setMessage("Версия: " + versionName)
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
+    private void navigateToTermsFragment() {
+        TermsFragment termsFragment = new TermsFragment();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, termsFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void navigateToPrivacyPolicyFragment() {
+        PrivacyPolicyFragment privacyPolicyFragment = new PrivacyPolicyFragment();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, privacyPolicyFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 }

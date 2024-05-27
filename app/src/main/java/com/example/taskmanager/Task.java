@@ -3,8 +3,10 @@ package com.example.taskmanager;
 public class Task {
     private long id;
     private String name;
+    private String description; // Добавляем описание
     private String tags;
     private boolean showInCalendar;
+    private boolean notify; // Добавляем оповещение
 
     public Task(String name, String tags, boolean showInCalendar) {
         this.name = name;
@@ -12,6 +14,33 @@ public class Task {
         this.showInCalendar = showInCalendar;
     }
 
+    // Добавляем конструктор для создания задачи с описанием и оповещением
+    public Task(String name, String description, String tags, boolean showInCalendar, boolean notify) {
+        this.name = name;
+        this.description = description;
+        this.tags = tags;
+        this.showInCalendar = showInCalendar;
+        this.notify = notify;
+    }
+
+    // Геттеры и сеттеры для описания и оповещения
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isNotify() {
+        return notify;
+    }
+
+    public void setNotify(boolean notify) {
+        this.notify = notify;
+    }
+
+    // Остальные геттеры и сеттеры остаются без изменений
     public long getId() {
         return id;
     }

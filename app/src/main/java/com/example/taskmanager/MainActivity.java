@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             openFastCreationTaskFragment();
             return true;
         } else if (id == R.id.creation_task) {
-            Toast.makeText(this, "Creation task clicked", Toast.LENGTH_SHORT).show();
+            openCreationTaskFragment(); // Изменено на вызов метода для открытия CreationTaskFragment
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -89,4 +89,13 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    private void openCreationTaskFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, new CreationTaskFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 }

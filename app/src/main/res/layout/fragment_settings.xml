@@ -75,16 +75,6 @@
                 app:icon="@drawable/theme_24" />
 
             <Button
-                android:id="@+id/ChangeLanguage"
-                style="@style/Widget.Material3.Button.IconButton.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="   Выбрать язык"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                app:icon="@drawable/language_24" />
-
-            <Button
                 android:id="@+id/ChangeNotification"
                 style="@style/Widget.Material3.Button.IconButton.Outlined"
                 android:layout_width="match_parent"
@@ -170,14 +160,16 @@
                 app:icon="@drawable/policy_24" />
 
             <Button
-                android:id="@+id/user_policy"
+                android:id="@+id/terms_of_service"
                 style="@style/Widget.Material3.Button.IconButton.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Положения и условия пользования"
-                android:textColor="@color/black"
                 android:textSize="15dp"
+                android:textColor="@color/black"
                 app:icon="@drawable/state_24" />
+
+
 
             <Button
                 android:id="@+id/about_app"
