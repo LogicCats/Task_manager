@@ -25,19 +25,21 @@
 
             <Button
                 android:id="@+id/accountRegistration"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Регистрация аккаунта"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/acc_reg_24" />
 
             <Button
                 android:id="@+id/accountLogin"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Вход в аккаунт"
+                android:textSize="15dp"
                 android:textColor="@color/black"
                 app:icon="@drawable/acc_log_24" />
 
@@ -64,29 +66,32 @@
 
             <Button
                 android:id="@+id/ChangeTheme"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Тема"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/theme_24" />
 
             <Button
                 android:id="@+id/ChangeLanguage"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Выбрать язык"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/language_24" />
 
             <Button
                 android:id="@+id/ChangeNotification"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Настройка уведомлений"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/notifications_24" />
 
         </LinearLayout>
@@ -111,12 +116,15 @@
 
             <Button
                 android:id="@+id/wipe_data"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Начать всё сначала"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/data_wipe_24" />
+
+
 
 
         </LinearLayout>
@@ -143,37 +151,41 @@
 
             <Button
                 android:id="@+id/guide"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Краткое обучение"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/guide_24" />
 
             <Button
                 android:id="@+id/politics"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Политика конфиденциальности"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/policy_24" />
 
             <Button
                 android:id="@+id/user_policy"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Положения и условия пользования"
                 android:textColor="@color/black"
+                android:textSize="15dp"
                 app:icon="@drawable/state_24" />
 
             <Button
                 android:id="@+id/about_app"
-                style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="   Версия приложения"
+                android:textSize="15dp"
                 android:textColor="@color/black"
                 app:icon="@drawable/vers_24" />
 

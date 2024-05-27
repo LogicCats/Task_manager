@@ -12,5 +12,9 @@
         <item name="colorOnPrimary">#E3E0E0</item>
     </style>
 
+    <style name="CustomButtonStyle" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:backgroundTint">@color/coffee</item>
+    </style>
+
     <style name="Theme.TaskManager" parent="Base.Theme.TaskManager" />
 </resources>
