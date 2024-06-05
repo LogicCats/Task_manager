@@ -12,7 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+/**
+ * Фрагмент для отображения политики конфиденциальности.
+ */
 public class PrivacyPolicyFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,7 +28,7 @@ public class PrivacyPolicyFragment extends Fragment {
         buttonReturnToSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateBackToSettings();
+                navigateBackToSettings(); // Вызов метода для возврата к настройкам
             }
         });
 
@@ -33,11 +37,11 @@ public class PrivacyPolicyFragment extends Fragment {
 
     // Метод для возврата к настройкам
     private void navigateBackToSettings() {
-        SettingsFragment settingsFragment = new SettingsFragment();
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_layout, settingsFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        SettingsFragment settingsFragment = new SettingsFragment(); // Создание нового фрагмента настроек
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager(); // Получение менеджера фрагментов
+        FragmentTransaction transaction = fragmentManager.beginTransaction(); // Начало транзакции фрагмента
+        transaction.replace(R.id.frame_layout, settingsFragment); // Замена текущего фрагмента на фрагмент настроек
+        transaction.addToBackStack(null); // Добавление транзакции в стек возврата
+        transaction.commit(); // Завершение транзакции
     }
 }

@@ -22,11 +22,12 @@ import java.util.List;
 
 public class CalendarFragment extends Fragment {
 
-    private TaskRepository taskRepository;
-    private TaskListAdapter adapter;
-    private ListView tasksListView;
-    private CalendarView calendarView;
+    private TaskRepository taskRepository; // Репозиторий задач
+    private TaskListAdapter adapter; // Адаптер для списка задач
+    private ListView tasksListView; // ListView для отображения задач
+    private CalendarView calendarView; // CalendarView для выбора даты
 
+    // Метод для получения выбранной даты
     private long getSelectedDate() {
         SharedPreferences preferences = requireContext().getSharedPreferences("selected_date", Context.MODE_PRIVATE);
         return preferences.getLong("selected_date_millis", 0); // 0 - значение по умолчанию
@@ -35,16 +36,17 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Надуваем макет для этого фрагмента
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        taskRepository = new TaskRepository(requireContext());
-        tasksListView = view.findViewById(R.id.TasksList);
-        calendarView = view.findViewById(R.id.Calendar_panel);
+        taskRepository = new TaskRepository(requireContext()); // Инициализация репозитория задач
+        tasksListView = view.findViewById(R.id.TasksList); // Поиск ListView
+        calendarView = view.findViewById(R.id.Calendar_panel); // Поиск CalendarView
 
-        adapter = new TaskListAdapter(requireContext(), new ArrayList<>(), taskRepository);
-        tasksListView.setAdapter(adapter);
+        adapter = new TaskListAdapter(requireContext(), new ArrayList<>(), taskRepository); // Создание адаптера для списка задач
+        tasksListView.setAdapter(adapter); // Установка адаптера для ListView
 
-        // Set up the calendar listener
+        // Настройка слушателя календаря
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -57,9 +59,10 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        // Update task list for the current date
+        // Обновление списка задач для текущей даты
         updateTaskList(Calendar.getInstance());
 
+        // Установка слушателя для элементов списка задач
         tasksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,17 +76,17 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        return view;
+        return view; // Возвращаем созданный вид
     }
-
 
     @Override
     public void onResume() {
         super.onResume();
-        // Refresh the task list when returning to the fragment
+        // Обновление списка задач при возвращении к фрагменту
         updateTaskList(Calendar.getInstance());
     }
 
+    // Метод для обновления списка задач
     private void updateTaskList(Calendar selectedDate) {
         // Получаем миллисекунды из объекта Calendar для выбранной даты
         long selectedDateMillis = selectedDate.getTimeInMillis();
@@ -116,6 +119,4 @@ public class CalendarFragment extends Fragment {
             updateTaskList(selectedDate);
         }
     }
-
-
 }

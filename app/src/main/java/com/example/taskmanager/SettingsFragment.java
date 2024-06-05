@@ -21,6 +21,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+/**
+ * Фрагмент для настроек приложения.
+ */
 public class SettingsFragment extends Fragment {
 
     private Button buttonRegister;
@@ -32,14 +35,15 @@ public class SettingsFragment extends Fragment {
     private Button buttonTermsOfService;
     private Button buttonPrivacyPolicy;
     private Button buttonAccount; // Добавляем кнопку для перехода к аккаунту
-
     private Button buttonGuide; // Добавляем кнопку для краткого обучения
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Загружаем макет для фрагмента настроек
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        // Инициализируем кнопки
         buttonRegister = view.findViewById(R.id.accountRegistration);
         buttonLogin = view.findViewById(R.id.accountLogin);
         buttonChangeTheme = view.findViewById(R.id.ChangeTheme);
@@ -51,81 +55,81 @@ public class SettingsFragment extends Fragment {
         buttonAccount = view.findViewById(R.id.account_button); // Инициализируем кнопку для перехода к аккаунту
         buttonGuide = view.findViewById(R.id.guide); // Инициализируем кнопку для краткого обучения
 
+        // Устанавливаем обработчики нажатия для кнопок
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToRegistrationFragment();
+                navigateToRegistrationFragment(); // Переход к фрагменту регистрации
             }
         });
 
         buttonTermsOfService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToTermsFragment();
+                navigateToTermsFragment(); // Переход к фрагменту с условиями обслуживания
             }
         });
 
         buttonPrivacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToPrivacyPolicyFragment();
+                navigateToPrivacyPolicyFragment(); // Переход к фрагменту с политикой конфиденциальности
             }
         });
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToLoginFragment();
+                navigateToLoginFragment(); // Переход к фрагменту входа в систему
             }
         });
 
         buttonChangeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showThemeDialog();
+                showThemeDialog(); // Отображение диалога выбора темы
             }
         });
-
-
 
         buttonWipeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showWipeDataDialog();
+                showWipeDataDialog(); // Отображение диалога сброса данных
             }
         });
 
         buttonChangeNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAppNotificationSettings();
+                openAppNotificationSettings(); // Открытие настроек уведомлений приложения
             }
         });
 
         buttonAboutApp.setOnClickListener(new View.OnClickListener() { // Устанавливаем обработчик нажатия для кнопки версии приложения
             @Override
             public void onClick(View v) {
-                showAppVersion();
+                showAppVersion(); // Отображение версии приложения
             }
         });
 
         buttonAccount.setOnClickListener(new View.OnClickListener() { // Обработчик нажатия для кнопки аккаунта
             @Override
             public void onClick(View v) {
-                navigateToAccountFragment();
+                navigateToAccountFragment(); // Переход к фрагменту аккаунта
             }
         });
 
         buttonGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToGuideFragment();
+                navigateToGuideFragment(); // Переход к фрагменту краткого обучения
             }
         });
 
         return view;
     }
 
+    // Метод для перехода к фрагменту регистрации
     private void navigateToRegistrationFragment() {
         RegistrationFragment registrationFragment = new RegistrationFragment();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -135,6 +139,7 @@ public class SettingsFragment extends Fragment {
         transaction.commit();
     }
 
+    // Метод для перехода к фрагменту входа в систему
     private void navigateToLoginFragment() {
         LoginFragment loginFragment = new LoginFragment();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -144,6 +149,7 @@ public class SettingsFragment extends Fragment {
         transaction.commit();
     }
 
+    // Метод для перехода к фрагменту аккаунта
     private void navigateToAccountFragment() {
         // Проверяем, существует ли уже AccountFragment
         AccountFragment accountFragment = (AccountFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AccountFragment");
@@ -161,7 +167,7 @@ public class SettingsFragment extends Fragment {
         transaction.commit();
     }
 
-
+    // Метод для отображения диалога выбора темы
     private void showThemeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Выберите тему")
@@ -171,11 +177,11 @@ public class SettingsFragment extends Fragment {
                         switch (which) {
                             case 0:
                                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                                saveThemePreference(AppCompatDelegate.MODE_NIGHT_NO);
+                                saveThemePreference(AppCompatDelegate.MODE_NIGHT_NO); // Сохраняем предпочтение темы
                                 break;
                             case 1:
                                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                                saveThemePreference(AppCompatDelegate.MODE_NIGHT_YES);
+                                saveThemePreference(AppCompatDelegate.MODE_NIGHT_YES); // Сохраняем предпочтение темы
                                 break;
                         }
                     }
@@ -183,6 +189,7 @@ public class SettingsFragment extends Fragment {
                 .show();
     }
 
+    // Метод для сохранения предпочтения темы
     private void saveThemePreference(int mode) {
         SharedPreferences preferences = requireActivity().getSharedPreferences("theme_preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -190,6 +197,7 @@ public class SettingsFragment extends Fragment {
         editor.apply();
     }
 
+    // Метод для отображения диалога сброса данных
     private void showWipeDataDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Подтверждение")
@@ -197,13 +205,14 @@ public class SettingsFragment extends Fragment {
                 .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        wipeData();
+                        wipeData(); // Вызываем метод сброса данных
                     }
                 })
                 .setNegativeButton("Отмена", null)
                 .show();
     }
 
+    // Метод для сброса данных
     private void wipeData() {
         // Удаление всех данных SharedPreferences
         SharedPreferences preferences = requireActivity().getSharedPreferences("theme_preferences", Context.MODE_PRIVATE);
@@ -225,6 +234,7 @@ public class SettingsFragment extends Fragment {
         requireActivity().recreate();
     }
 
+    // Метод для открытия настроек уведомлений приложения
     private void openAppNotificationSettings() {
         Intent intent = new Intent();
         intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
@@ -232,6 +242,7 @@ public class SettingsFragment extends Fragment {
         startActivity(intent);
     }
 
+    // Метод для отображения версии приложения
     private void showAppVersion() {
         // Получаем версию приложения из манифеста
         String versionName = "";
@@ -249,6 +260,7 @@ public class SettingsFragment extends Fragment {
                 .show();
     }
 
+    // Метод для перехода к фрагменту с условиями обслуживания
     private void navigateToTermsFragment() {
         TermsFragment termsFragment = new TermsFragment();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -258,6 +270,7 @@ public class SettingsFragment extends Fragment {
         transaction.commit();
     }
 
+    // Метод для перехода к фрагменту с политикой конфиденциальности
     private void navigateToPrivacyPolicyFragment() {
         PrivacyPolicyFragment privacyPolicyFragment = new PrivacyPolicyFragment();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -267,6 +280,7 @@ public class SettingsFragment extends Fragment {
         transaction.commit();
     }
 
+    // Метод для перехода к фрагменту краткого обучения
     private void navigateToGuideFragment() {
         GuideFragment guideFragment = new GuideFragment();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -275,5 +289,4 @@ public class SettingsFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

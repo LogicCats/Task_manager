@@ -22,15 +22,18 @@ import android.widget.LinearLayout;
 
 import com.example.taskmanager.databinding.ActivityMainBinding;
 
+/**
+ * Основная активность приложения.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
-    SharedPreferences usagePreferences;
-    long startTime;
+    ActivityMainBinding binding; // Привязка для активности
+    SharedPreferences usagePreferences; // SharedPreferences для хранения времени использования приложения
+    long startTime; // Время запуска приложения
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Load saved theme before calling super.onCreate
+        // Загрузка сохраненной темы перед вызовом super.onCreate
         SharedPreferences preferences = getSharedPreferences("theme_preferences", MODE_PRIVATE);
         int themeMode = preferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_NO);
         AppCompatDelegate.setDefaultNightMode(themeMode);
@@ -42,11 +45,12 @@ public class MainActivity extends AppCompatActivity {
         usagePreferences = getSharedPreferences("app_usage_preferences", Context.MODE_PRIVATE);
         startTime = System.currentTimeMillis();
 
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment()); // Замена текущего фрагмента на HomeFragment
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Обработчик для нижней навигационной панели
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
@@ -67,15 +71,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        updateAppUsageTime();
+        updateAppUsageTime(); // Обновление времени использования приложения при приостановке
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis(); // Обновление времени запуска приложения
     }
 
+    /**
+     * Метод для обновления времени использования приложения.
+     */
     private void updateAppUsageTime() {
         long elapsedTime = System.currentTimeMillis() - startTime;
         int elapsedMinutes = (int) (elapsedTime / (1000 * 60));
@@ -85,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Метод для замены текущего фрагмента на другой.
+     *
+     * @param fragment Фрагмент, который нужно отобразить.
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -96,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.upper_nav_menu, menu);
 
-        // Get the menu items
+        // Получение элементов меню
         MenuItem fastCreationTaskItem = menu.findItem(R.id.fast_creation_task);
         MenuItem creationTaskItem = menu.findItem(R.id.creation_task);
 
-        // Set the tint color for the icons
+        // Установка цвета значков
         Drawable fastCreationTaskIcon = fastCreationTaskItem.getIcon();
         if (fastCreationTaskIcon != null) {
             fastCreationTaskIcon.setTint(ContextCompat.getColor(this, R.color.primary));
@@ -121,16 +133,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.fast_creation_task) {
-            openFastCreationTaskFragment();
+            openFastCreationTaskFragment(); // Открывает фрагмент быстрого создания задачи
             return true;
         } else if (id == R.id.creation_task) {
-            openCreationTaskFragment(); // Calls method to open CreationTaskFragment
+            openCreationTaskFragment(); // Открывает фрагмент создания задачи
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * Метод для открытия фрагмента быстрого создания задачи.
+     */
     private void openFastCreationTaskFragment() {
         FastCreationTaskFragment fastCreationTaskFragment = new FastCreationTaskFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -140,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    /**
+     * Метод для открытия фрагмента создания задачи.
+     */
     private void openCreationTaskFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -148,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    /**
+     * Метод для переключения видимости дополнительных деталей.
+     *
+     * @param view Кнопка, вызвавшая метод.
+     */
     public void toggleDetailsVisibility(View view) {
         LinearLayout detailsLayout = findViewById(R.id.details_layout);
         if (detailsLayout.getVisibility() == View.VISIBLE) {

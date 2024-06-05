@@ -15,7 +15,7 @@
         android:background="@color/surface"
         android:queryBackground="@color/surface"
         android:iconifiedByDefault="false"
-        android:queryHint="Search tasks..."
+        android:queryHint="Поиск..."
         android:textColor="@color/onSurface"
         app:iconifiedByDefault="false" />
 

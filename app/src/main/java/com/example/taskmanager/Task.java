@@ -1,22 +1,22 @@
-
 package com.example.taskmanager;
 
 import java.util.Calendar;
 
 public class Task {
-    private long id;
-    private String name;
-    private String description;
-    private String tags;
-    private Calendar date; // Изменили тип поля на Calendar
-    private boolean showInCalendar;
-    private boolean notify;
-    private boolean isCompleted;
-    private boolean descriptionVisible;
-    private boolean dateTimeVisible;
+    private long id; // Уникальный идентификатор задачи
+    private String name; // Название задачи
+    private String description; // Описание задачи
+    private String tags; // Теги задачи
+    private Calendar date; // Дата и время выполнения задачи
+    private boolean showInCalendar; // Отображение задачи в календаре
+    private boolean notify; // Оповещение о задаче
+    private boolean isCompleted; // Статус выполнения задачи
+    private boolean descriptionVisible; // Видимость описания задачи
+    private boolean dateTimeVisible; // Видимость даты и времени задачи
 
-    private boolean completed;
+    private boolean completed; // Статус выполнения
 
+    // Конструктор для создания задачи без описания, оповещения и статуса выполнения
     public Task(String name, String tags, String s, boolean showInCalendar, boolean notify, boolean b) {
         this.name = name;
         this.tags = tags;
@@ -41,7 +41,7 @@ public class Task {
         this.dateTimeVisible = dateTimeVisible;
     }
 
-    // Добавляем конструктор для создания задачи с описанием, оповещением и статусом выполнения
+    // Конструктор для создания задачи с описанием, оповещением и статусом выполнения
     public Task(String name, String description, String tags, boolean showInCalendar, boolean notify) {
         this.name = name;
         this.description = description;
@@ -51,7 +51,6 @@ public class Task {
         // Устанавливаем isCompleted по умолчанию в false
         this.isCompleted = false;
     }
-
 
     // Геттеры и сеттеры для описания, оповещения и статуса выполнения
     public String getDescription() {
@@ -77,8 +76,6 @@ public class Task {
     public void setNotify(boolean notify) {
         this.notify = notify;
     }
-
-
 
     // Остальные геттеры и сеттеры остаются без изменений
     public long getId() {
@@ -120,6 +117,4 @@ public class Task {
     public void setDate(Calendar date) {
         this.date = date;
     }
-
-
 }

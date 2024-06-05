@@ -11,10 +11,21 @@ import androidx.fragment.app.Fragment;
 
 import java.util.List;
 
+/**
+ * Фрагмент, отображающий домашнюю страницу приложения.
+ */
 public class HomeFragment extends Fragment {
 
-    private TaskRepository taskRepository;
+    private TaskRepository taskRepository; // Репозиторий задач
 
+    /**
+     * Создает и настраивает пользовательский интерфейс фрагмента.
+     *
+     * @param inflater           объект, который может преобразовать XML-файл макета в объекты View.
+     * @param container          родительский объект View, к которому будет присоединен макет фрагмента.
+     * @param savedInstanceState объект, содержащий данные о состоянии фрагмента.
+     * @return View, представляющий пользовательский интерфейс фрагмента.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,6 +47,9 @@ public class HomeFragment extends Fragment {
     }
 
 
+    /**
+     * Вызывается при возврате к фрагменту.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -43,6 +57,9 @@ public class HomeFragment extends Fragment {
         updateTaskList();
     }
 
+    /**
+     * Обновляет список задач.
+     */
     private void updateTaskList() {
         // Получение списка задач из репозитория
         List<Task> tasks = taskRepository.getAllTasks();
