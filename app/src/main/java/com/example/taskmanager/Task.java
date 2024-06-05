@@ -21,7 +21,10 @@ public class Task {
         this.name = name;
         this.tags = tags;
         this.showInCalendar = showInCalendar;
+        this.notify = notify;
+        this.date = Calendar.getInstance();
     }
+
 
     // Геттер и сеттер для видимости описания
     public boolean isDescriptionVisible() {

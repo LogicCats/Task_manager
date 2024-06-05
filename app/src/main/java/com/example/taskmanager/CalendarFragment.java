@@ -26,6 +26,8 @@ public class CalendarFragment extends Fragment {
     private TaskListAdapter adapter; // Адаптер для списка задач
     private ListView tasksListView; // ListView для отображения задач
     private CalendarView calendarView; // CalendarView для выбора даты
+    Calendar calendar = Calendar.getInstance();
+
 
     // Метод для получения выбранной даты
     private long getSelectedDate() {

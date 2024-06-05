@@ -115,7 +115,8 @@ public class FastCreationTaskFragment extends Fragment {
  * @param task добавляемая задача
  */
 private void addToTaskList(Task task) {
-    ListView taskListView = getActivity().findViewById(R.id.TasksList); // Получение списка задач из активности
+    ListView taskListView = requireActivity().findViewById(R.id.TasksList);
+    // Получение списка задач из активности
     if (taskListView != null) { // Проверка наличия списка задач
         TaskListAdapter adapter = (TaskListAdapter) taskListView.getAdapter(); // Получение адаптера списка задач
         if (adapter != null) { // Проверка наличия адаптера

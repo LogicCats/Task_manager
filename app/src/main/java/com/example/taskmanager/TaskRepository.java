@@ -29,13 +29,23 @@ public class TaskRepository {
         values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags()); // Добавляем теги задачи
         values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0); // Добавляем флаг отображения в календаре
         values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0); // Добавляем флаг уведомления
-        values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate().getTimeInMillis()); // Сохраняем дату в миллисекундах
         values.put(TaskDatabaseHelper.COLUMN_IS_COMPLETED, task.isCompleted() ? 1 : 0); // Добавляем статус завершенности задачи
+
+        // Вставляем миллисекунды даты в ContentValues, если дата не null
+        if (task.getDate() != null) {
+            values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate().getTimeInMillis()); // Сохраняем дату в миллисекундах
+        } else {
+            // Если дата не инициализирована, выбрасываем исключение или принимаем альтернативное решение
+            // Пример:
+            // throw new IllegalArgumentException("Дата задачи не была инициализирована");
+            values.putNull(TaskDatabaseHelper.COLUMN_DATE); // Принимаем NULL значение для даты
+        }
 
         // Вставляем значения в таблицу задач
         db.insert(TaskDatabaseHelper.TABLE_TASKS, null, values);
         db.close(); // Закрываем базу данных
     }
+
 
     // Метод для получения всех задач
     public List<Task> getAllTasks() {
