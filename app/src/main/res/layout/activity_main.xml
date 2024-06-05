@@ -21,8 +21,8 @@
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/upper_nav_menu"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:background="@color/primary"
-            app:titleTextColor="@color/onPrimary" />
+            android:background="@color/onPrimary"
+            app:titleTextColor="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/black">
 
     <item
         android:id="@+id/fast_creation_task"
         android:icon="@drawable/fast_creation_task_24"
+        android:iconTint="@color/white"
         android:title=""
-        app:showAsAction="always"
-        android:tint="@color/primary" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/creation_task"
         android:icon="@drawable/create_task_24"
+        android:iconTint="@color/white"
         android:title=""
-        app:showAsAction="always"
-        android:tint="@color/primary" />
+        app:showAsAction="always" />
 
 </menu>
+
