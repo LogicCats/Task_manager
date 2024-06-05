@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="accountLogin" type="id" />
+    <item name="accountRegistration" type="id" />
+    <item name="account_button" type="id" />
+    <item name="ChangeTheme" type="id" />
+    <item name="wipe_data" type="id" />
+</resources>

@@ -6,4 +6,5 @@
     <color name="coffee">#ece0d1</color>
     <color name="grey_white">#A3A3A3</color>
     <color name="grey_white_text">#74A3A3A3</color>
+    <color name="task_completed">#757575</color>
 </resources>

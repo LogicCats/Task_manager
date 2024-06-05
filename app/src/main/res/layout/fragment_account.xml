@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Обертка для элементов интерфейса аккаунта -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <!-- Заголовок "Аккаунт" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Аккаунт"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"/>
+
+        <!-- Аватарка пользователя -->
+        <ImageView
+            android:id="@+id/imageViewAvatar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/default_avatar"
+            android:scaleType="centerCrop"
+            android:paddingBottom="16dp"/>
+
+        <!-- Имя пользователя -->
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Имя пользователя: user"
+            android:textSize="16sp"
+            android:paddingBottom="4dp"/>
+
+        <!-- Email пользователя -->
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: user@example.com"
+            android:textSize="16sp"
+            android:paddingBottom="16dp"/>
+
+        <!-- Кнопка для выбора аватарки из галереи -->
+        <Button
+            android:id="@+id/buttonChooseAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выбрать аватарку"/>
+
+        <!-- Другие элементы интерфейса по необходимости -->
+
+    </LinearLayout>
+</FrameLayout>

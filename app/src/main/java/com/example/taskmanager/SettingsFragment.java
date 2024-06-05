@@ -29,10 +29,11 @@ public class SettingsFragment extends Fragment {
     private Button buttonWipeData;
     private Button buttonChangeNotification;
     private Button buttonAboutApp; // Добавляем кнопку для версии приложения
-
     private Button buttonTermsOfService;
-
     private Button buttonPrivacyPolicy;
+    private Button buttonAccount; // Добавляем кнопку для перехода к аккаунту
+
+    private Button buttonGuide; // Добавляем кнопку для краткого обучения
 
     @Nullable
     @Override
@@ -47,6 +48,8 @@ public class SettingsFragment extends Fragment {
         buttonAboutApp = view.findViewById(R.id.about_app); // Инициализируем кнопку для версии приложения
         buttonTermsOfService = view.findViewById(R.id.terms_of_service);
         buttonPrivacyPolicy = view.findViewById(R.id.politics);
+        buttonAccount = view.findViewById(R.id.account_button); // Инициализируем кнопку для перехода к аккаунту
+        buttonGuide = view.findViewById(R.id.guide); // Инициализируем кнопку для краткого обучения
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,8 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+
+
         buttonWipeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +109,19 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        buttonAccount.setOnClickListener(new View.OnClickListener() { // Обработчик нажатия для кнопки аккаунта
+            @Override
+            public void onClick(View v) {
+                navigateToAccountFragment();
+            }
+        });
 
+        buttonGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToGuideFragment();
+            }
+        });
 
         return view;
     }
@@ -126,6 +143,24 @@ public class SettingsFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    private void navigateToAccountFragment() {
+        // Проверяем, существует ли уже AccountFragment
+        AccountFragment accountFragment = (AccountFragment) getActivity().getSupportFragmentManager().findFragmentByTag("AccountFragment");
+
+        // Если не существует, создаем новый
+        if (accountFragment == null) {
+            accountFragment = new AccountFragment();
+        }
+
+        // Переход к AccountFragment
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, accountFragment, "AccountFragment");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     private void showThemeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -176,7 +211,15 @@ public class SettingsFragment extends Fragment {
         editor.clear();
         editor.apply();
 
-        // Здесь добавьте удаление других данных, если необходимо
+        // Удаление всех задач из базы данных
+        TaskRepository taskRepository = new TaskRepository(requireContext());
+        taskRepository.deleteAllTasks();
+
+        // Удаление информации о завершенности задач из SharedPreferences
+        SharedPreferences taskCompletionPreferences = requireActivity().getSharedPreferences("task_completion_status", Context.MODE_PRIVATE);
+        SharedPreferences.Editor taskCompletionEditor = taskCompletionPreferences.edit();
+        taskCompletionEditor.clear();
+        taskCompletionEditor.apply();
 
         // Перезапуск приложения
         requireActivity().recreate();
@@ -220,6 +263,15 @@ public class SettingsFragment extends Fragment {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_layout, privacyPolicyFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void navigateToGuideFragment() {
+        GuideFragment guideFragment = new GuideFragment();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, guideFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

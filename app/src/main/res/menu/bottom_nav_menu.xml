@@ -12,6 +12,11 @@
         android:title="Tasks" />
 
     <item
+        android:id="@+id/statistics"
+        android:icon="@drawable/stats_24"
+        android:title="Statistics" />
+
+    <item
         android:id="@+id/calendar"
         android:icon="@drawable/calendar_24"
         android:title="Calendar" />

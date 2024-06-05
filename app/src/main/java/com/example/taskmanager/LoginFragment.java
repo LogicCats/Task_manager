@@ -1,5 +1,7 @@
 package com.example.taskmanager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,14 +56,31 @@ public class LoginFragment extends Fragment {
 
         if (databaseHelper.checkUser(username, password)) {
             Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
-            // Переход на фрагмент SettingsFragment
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, new SettingsFragment());
+
+            // Получение адреса электронной почты пользователя из базы данных
+            String email = databaseHelper.getUserEmail(username);
+
+            // Сохранение имени пользователя и электронной почты в SharedPreferences
+            SharedPreferences preferences = getActivity().getSharedPreferences("user_preferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("username", username);
+            editor.putString("email", email);
+            editor.apply();
+
+            // Переход к AccountFragment
+            AccountFragment accountFragment = new AccountFragment();
+            accountFragment.setUsername(username);
+            accountFragment.setEmail(email);
+
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, accountFragment, "AccountFragment");
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else {
             Toast.makeText(getActivity(), "Invalid username or password", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
 }

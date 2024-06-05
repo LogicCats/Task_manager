@@ -20,37 +20,79 @@ public class TaskRepository {
 
         ContentValues values = new ContentValues();
         values.put(TaskDatabaseHelper.COLUMN_NAME, task.getName());
+        values.put(TaskDatabaseHelper.COLUMN_DESCRIPTION, task.getDescription());
         values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags());
         values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_IS_COMPLETED, task.isCompleted() ? 1 : 0);
 
         db.insert(TaskDatabaseHelper.TABLE_TASKS, null, values);
         db.close();
     }
 
     public List<Task> getAllTasks() {
+        return getTasksForDate(null); // Возвращаем все задачи без фильтрации по дате
+    }
+
+    public List<Task> getTasksForDate(Long dateMillis) {
         List<Task> tasks = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(TaskDatabaseHelper.TABLE_TASKS, null, null, null, null, null, null);
+        String selection = null;
+        String[] selectionArgs = null;
+        if (dateMillis != null) {
+            selection = TaskDatabaseHelper.COLUMN_DATE + " = ?";
+            selectionArgs = new String[]{String.valueOf(dateMillis)};
+        }
 
+        Cursor cursor = db.query(TaskDatabaseHelper.TABLE_TASKS, null, selection, selectionArgs, null, null, null);
+
+        tasks = getTasksFromCursor(cursor);
+
+        db.close();
+        return tasks;
+    }
+
+    public void deleteAllTasks() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(TaskDatabaseHelper.TABLE_TASKS, null, null);
+        db.close();
+    }
+
+    private List<Task> getTasksFromCursor(Cursor cursor) {
+        List<Task> tasks = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_NAME));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_DESCRIPTION));
                 String tags = cursor.getString(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_TAGS));
                 boolean showInCalendar = cursor.getInt(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR)) == 1;
+                boolean notify = cursor.getInt(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_NOTIFY)) == 1;
+                boolean isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_IS_COMPLETED)) == 1;
 
-                Task task = new Task(name, tags, showInCalendar);
+                Task task = new Task(name, description, tags, showInCalendar, notify);
                 task.setId(id);
+                task.setCompleted(isCompleted);
                 tasks.add(task);
             } while (cursor.moveToNext());
         }
-
         cursor.close();
-        db.close();
-
         return tasks;
     }
 
-    // Другие методы для работы с задачами, если необходимо
+    public void updateTask(Task task) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TaskDatabaseHelper.COLUMN_NAME, task.getName());
+        values.put(TaskDatabaseHelper.COLUMN_DESCRIPTION, task.getDescription());
+        values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags());
+        values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_IS_COMPLETED, task.isCompleted() ? 1 : 0);
+
+        db.update(TaskDatabaseHelper.TABLE_TASKS, values, TaskDatabaseHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(task.getId())});
+        db.close();
+    }
 }

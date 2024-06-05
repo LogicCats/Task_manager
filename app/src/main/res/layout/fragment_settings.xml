@@ -24,6 +24,16 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/account_button"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   Аккаунт"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:icon="@drawable/acc_reg_24" />
+
+            <Button
                 android:id="@+id/accountRegistration"
                 style="@style/Widget.Material3.Button.IconButton.Outlined"
                 android:layout_width="match_parent"

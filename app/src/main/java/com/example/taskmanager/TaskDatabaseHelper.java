@@ -7,20 +7,28 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "taskmanager.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 7; // Incremented version
 
     public static final String TABLE_TASKS = "tasks";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_TAGS = "tags";
     public static final String COLUMN_SHOW_IN_CALENDAR = "show_in_calendar";
+    public static final String COLUMN_NOTIFY = "notify";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_IS_COMPLETED = "is_completed"; // New column for task completion status
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_TASKS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NAME + " TEXT, " +
+                    COLUMN_DESCRIPTION + " TEXT, " +
                     COLUMN_TAGS + " TEXT, " +
-                    COLUMN_SHOW_IN_CALENDAR + " INTEGER" +
+                    COLUMN_SHOW_IN_CALENDAR + " INTEGER, " +
+                    COLUMN_NOTIFY + " INTEGER, " +
+                    COLUMN_DATE + " INTEGER, " +
+                    COLUMN_IS_COMPLETED + " INTEGER" + // New column for task completion status
                     ");";
 
     public TaskDatabaseHelper(Context context) {
@@ -34,7 +42,6 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
-        onCreate(db);
+        db.execSQL("ALTER TABLE " + TABLE_TASKS + " ADD COLUMN " + COLUMN_IS_COMPLETED + " INTEGER DEFAULT 0");
     }
 }

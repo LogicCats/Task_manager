@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -80,6 +83,16 @@ public class CreationTaskFragment extends Fragment {
             }
         });
 
+        showInCalendarCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Сохраняем выбранную дату в SharedPreferences
+                    saveSelectedDate(selectedDateTime.getTimeInMillis());
+                }
+            }
+        });
+
         return view;
     }
 
@@ -130,18 +143,34 @@ public class CreationTaskFragment extends Fragment {
             return;
         }
 
-        Task task = new Task(taskName, taskDescription, taskTags, showInCalendar, notify);
+        Task task = new Task(taskName, taskDescription, taskTags, showInCalendar, notify, false);
+
+        // Устанавливаем дату задачи
+        task.setDate(selectedDateTime.getTimeInMillis());
+
         TaskDatabaseHelper dbHelper = new TaskDatabaseHelper(requireContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TaskDatabaseHelper.COLUMN_NAME, task.getName());
+        values.put(TaskDatabaseHelper.COLUMN_DESCRIPTION, task.getDescription()); // добавляем описание
         values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags());
         values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate()); // сохраняем дату
+
         long newRowId = db.insert(TaskDatabaseHelper.TABLE_TASKS, null, values);
         db.close();
 
         Toast.makeText(requireContext(), "Задача создана", Toast.LENGTH_SHORT).show();
         getParentFragmentManager().popBackStack();
     }
+
+    private void saveSelectedDate(long selectedDateMillis) {
+        SharedPreferences preferences = requireContext().getSharedPreferences("selected_date", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong("selected_date_millis", selectedDateMillis);
+        editor.apply();
+    }
+
 
 }

@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2; // Увеличили версию базы данных
+    private static final int DATABASE_VERSION = 3; // Увеличили версию базы данных при изменении
 
     private static final String DATABASE_NAME = "UserManager.db";
     private static final String TABLE_USERS = "users";
@@ -17,8 +20,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_EMAIL = "email"; // Добавляем новую колонку для email
 
-
-
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_USERS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -26,7 +27,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_PASSWORD + " TEXT, " +
                     COLUMN_EMAIL + " TEXT" + // Добавляем столбец для email
                     ")";
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,31 +52,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(newTableCreate);
     }
 
-
-
     public boolean addUser(String username, String password, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, username);
-        values.put(COLUMN_PASSWORD, password);
+        values.put(COLUMN_PASSWORD, hashPassword(password)); // Хешируем пароль перед сохранением
         values.put(COLUMN_EMAIL, email); // Добавляем значение для столбца email
         long result = db.insert(TABLE_USERS, null, values);
         return result != -1;
     }
 
-
-
-    public boolean checkUser(String username) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERNAME + "=?", new String[]{username});
-        int count = cursor.getCount();
-        cursor.close();
-        return count > 0;
-    }
-
     public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERNAME + "=? AND " + COLUMN_PASSWORD + "=?", new String[]{username, password});
+        String hashedPassword = hashPassword(password); // Хешируем введенный пароль для проверки
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERNAME + "=? AND " + COLUMN_PASSWORD + "=?", new String[]{username, hashedPassword});
         int count = cursor.getCount();
         cursor.close();
         return count > 0;
@@ -90,4 +79,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count > 0;
     }
 
+    public String getUserEmail(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_EMAIL};
+        String selection = COLUMN_USERNAME + " = ?";
+        String[] selectionArgs = {username};
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        String email = null;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndex(COLUMN_EMAIL);
+                if (columnIndex != -1) {
+                    email = cursor.getString(columnIndex);
+                }
+            }
+            cursor.close();
+        }
+        return email;
+    }
+
+
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedHash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password", e);
+        }
+    }
 }

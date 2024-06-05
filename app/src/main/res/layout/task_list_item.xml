@@ -19,4 +19,52 @@
         android:layout_height="wrap_content"
         android:text="Task Tags"
         android:textSize="14sp" />
+
+    <!-- Добавляем кнопку для отображения/скрытия дополнительной информации -->
+    <!--<Button
+        android:id="@+id/show_details_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Details"
+        android:onClick="toggleDetailsVisibility" />-->
+
+    <!-- Добавляем скрытые представления для отображения дополнительной информации -->
+    <LinearLayout
+        android:id="@+id/details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/task_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Description"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/task_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Date and Time"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/task_status_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_task_status_indicator"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
+
+    <CheckBox
+        android:id="@+id/task_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:checked="false"
+        android:text="Completed"
+        android:textColor="@color/task_completed" />
 </LinearLayout>

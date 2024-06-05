@@ -14,17 +14,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.taskmanager.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    SharedPreferences usagePreferences;
+    long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Загрузка сохраненной темы перед вызовом super.onCreate
+        // Load saved theme before calling super.onCreate
         SharedPreferences preferences = getSharedPreferences("theme_preferences", MODE_PRIVATE);
         int themeMode = preferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_NO);
         AppCompatDelegate.setDefaultNightMode(themeMode);
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        usagePreferences = getSharedPreferences("app_usage_preferences", Context.MODE_PRIVATE);
+        startTime = System.currentTimeMillis();
 
         replaceFragment(new HomeFragment());
 
@@ -48,9 +55,32 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new CalendarFragment());
             } else if (itemId == R.id.settings) {
                 replaceFragment(new SettingsFragment());
+            } else if (itemId == R.id.statistics) {
+                replaceFragment(new StatisticsFragment());
             }
             return true;
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        updateAppUsageTime();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTime = System.currentTimeMillis();
+    }
+
+    private void updateAppUsageTime() {
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        int elapsedMinutes = (int) (elapsedTime / (1000 * 60));
+        SharedPreferences.Editor editor = usagePreferences.edit();
+        int totalUsageTime = usagePreferences.getInt("app_usage_time", 0) + elapsedMinutes;
+        editor.putInt("app_usage_time", totalUsageTime);
+        editor.apply();
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -74,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             openFastCreationTaskFragment();
             return true;
         } else if (id == R.id.creation_task) {
-            openCreationTaskFragment(); // Изменено на вызов метода для открытия CreationTaskFragment
+            openCreationTaskFragment(); // Calls method to open CreationTaskFragment
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -98,4 +128,14 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    public void toggleDetailsVisibility(View view) {
+        LinearLayout detailsLayout = findViewById(R.id.details_layout);
+        if (detailsLayout.getVisibility() == View.VISIBLE) {
+            detailsLayout.setVisibility(View.GONE);
+            ((Button) view).setText("Show Details");
+        } else {
+            detailsLayout.setVisibility(View.VISIBLE);
+            ((Button) view).setText("Hide Details");
+        }
+    }
 }

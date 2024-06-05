@@ -1,11 +1,14 @@
 package com.example.taskmanager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -14,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
+import java.util.Calendar;
 
 public class FastCreationTaskFragment extends Fragment {
 
@@ -24,6 +27,10 @@ public class FastCreationTaskFragment extends Fragment {
     private Button cancelButton;
     private Button createButton;
     private TaskRepository taskRepository;
+
+    private CheckBox showInCalendarCheckBox;
+
+    private Calendar selectedDateTime; // Добавим переменную для хранения выбранной даты
 
     @Nullable
     @Override
@@ -35,6 +42,7 @@ public class FastCreationTaskFragment extends Fragment {
         showInCalendarAndListCheckBox = view.findViewById(R.id.show_in_calendar_and_list);
         cancelButton = view.findViewById(R.id.cancel_button);
         createButton = view.findViewById(R.id.create_button);
+        showInCalendarCheckBox = view.findViewById(R.id.show_in_calendar_and_list);
 
         taskRepository = new TaskRepository(getContext());
 
@@ -57,7 +65,8 @@ public class FastCreationTaskFragment extends Fragment {
                     return;
                 }
 
-                Task task = new Task(taskName, taskTags, showInCalendarAndList);
+                // Assuming notify is false by default for fast creation
+                Task task = new Task(taskName, null, taskTags, showInCalendarAndList, false);
                 taskRepository.addTask(task);
 
                 if (showInCalendarAndList) {
@@ -66,6 +75,18 @@ public class FastCreationTaskFragment extends Fragment {
 
                 Toast.makeText(getContext(), "Задача создана", Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
+            }
+        });
+
+        showInCalendarCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Получаем выбранную дату из календаря
+                    selectedDateTime = Calendar.getInstance();
+                    // Сохраняем выбранную дату в SharedPreferences
+                    saveSelectedDate(selectedDateTime.getTimeInMillis());
+                }
             }
         });
 
@@ -83,5 +104,12 @@ public class FastCreationTaskFragment extends Fragment {
                 Toast.makeText(getContext(), "Ошибка при добавлении задачи в список", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void saveSelectedDate(long selectedDateMillis) {
+        SharedPreferences preferences = requireContext().getSharedPreferences("selected_date", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong("selected_date_millis", selectedDateMillis);
+        editor.apply();
     }
 }

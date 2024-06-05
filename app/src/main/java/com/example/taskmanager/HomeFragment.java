@@ -20,16 +20,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Инициализация TaskRepository
+        // Initialize TaskRepository
         taskRepository = new TaskRepository(requireContext());
 
-        // Находим ListView в макете
+        // Find ListView in the layout
         ListView tasksListView = view.findViewById(R.id.TasksList);
 
-        // Создаем адаптер для списка задач
-        TaskListAdapter adapter = new TaskListAdapter(requireContext(), taskRepository.getAllTasks());
+        // Create adapter for the task list
+        TaskListAdapter adapter = new TaskListAdapter(requireContext(), taskRepository.getAllTasks(), taskRepository);
 
-        // Устанавливаем адаптер для ListView
+        // Set the adapter for ListView
         tasksListView.setAdapter(adapter);
 
         return view;
