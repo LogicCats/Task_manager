@@ -57,6 +57,9 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        // Update task list for the current date
+        updateTaskList(Calendar.getInstance());
+
         tasksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,6 +75,7 @@ public class CalendarFragment extends Fragment {
 
         return view;
     }
+
 
     @Override
     public void onResume() {
@@ -101,12 +105,17 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        long selectedDateMillis = getSelectedDate();
+        long selectedDateMillis = 0;
+        Bundle args = getArguments();
+        if (args != null) {
+            selectedDateMillis = args.getLong("selected_date_millis", 0);
+        }
         if (selectedDateMillis != 0) {
             Calendar selectedDate = Calendar.getInstance();
             selectedDate.setTimeInMillis(selectedDateMillis);
             updateTaskList(selectedDate);
         }
     }
+
 
 }

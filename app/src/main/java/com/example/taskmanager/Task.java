@@ -1,20 +1,19 @@
 
 package com.example.taskmanager;
 
+import java.util.Calendar;
+
 public class Task {
     private long id;
     private String name;
-    private String description; // Добавляем описание
+    private String description;
     private String tags;
-
-    private long date;
+    private Calendar date; // Изменили тип поля на Calendar
     private boolean showInCalendar;
-    private boolean notify; // Добавляем оповещение
-    private boolean isCompleted; // Новое поле для отслеживания выполнения задачи
-
-
-    private boolean descriptionVisible; // добавлено поле для отслеживания видимости описания
-    private boolean dateTimeVisible; // добавлено поле для отслеживания видимости даты и времени
+    private boolean notify;
+    private boolean isCompleted;
+    private boolean descriptionVisible;
+    private boolean dateTimeVisible;
 
     private boolean completed;
 
@@ -114,12 +113,13 @@ public class Task {
         this.showInCalendar = showInCalendar;
     }
 
-    public long getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
+
 
 }

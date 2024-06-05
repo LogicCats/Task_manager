@@ -1,11 +1,14 @@
 package com.example.taskmanager;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -145,25 +148,37 @@ public class CreationTaskFragment extends Fragment {
 
         Task task = new Task(taskName, taskDescription, taskTags, showInCalendar, notify, false);
 
-        // Устанавливаем дату задачи
-        task.setDate(selectedDateTime.getTimeInMillis());
+        // Получите ваш объект Calendar с выбранной датой
+        Calendar selectedDateTime = Calendar.getInstance();
+        task.setDate(selectedDateTime);
+        // Установите дату для объекта Task
 
         TaskDatabaseHelper dbHelper = new TaskDatabaseHelper(requireContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TaskDatabaseHelper.COLUMN_NAME, task.getName());
-        values.put(TaskDatabaseHelper.COLUMN_DESCRIPTION, task.getDescription()); // добавляем описание
+        values.put(TaskDatabaseHelper.COLUMN_DESCRIPTION, task.getDescription());
         values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags());
         values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0);
         values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0);
-        values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate()); // сохраняем дату
+        values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate().getTimeInMillis());
 
+        // Сохраняем задачу в базу данных
         long newRowId = db.insert(TaskDatabaseHelper.TABLE_TASKS, null, values);
         db.close();
 
         Toast.makeText(requireContext(), "Задача создана", Toast.LENGTH_SHORT).show();
+
+        // Если установлен флаг уведомления, запланируйте его
+        if (notify) {
+            long notificationTimeMillis = selectedDateTime.getTimeInMillis();
+            scheduleNotification(notificationTimeMillis);
+        }
+
+        // Возвращаемся к предыдущему фрагменту
         getParentFragmentManager().popBackStack();
     }
+
 
     private void saveSelectedDate(long selectedDateMillis) {
         SharedPreferences preferences = requireContext().getSharedPreferences("selected_date", Context.MODE_PRIVATE);
@@ -171,6 +186,19 @@ public class CreationTaskFragment extends Fragment {
         editor.putLong("selected_date_millis", selectedDateMillis);
         editor.apply();
     }
+
+
+    private void scheduleNotification(long notificationTimeMillis) {
+        Intent notificationIntent = new Intent(requireContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE); // Добавлен флаг FLAG_IMMUTABLE
+
+        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, notificationTimeMillis, pendingIntent);
+        }
+    }
+
+
 
 
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TaskRepository {
@@ -24,6 +25,7 @@ public class TaskRepository {
         values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags());
         values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0);
         values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate().getTimeInMillis()); // Сохраняем дату в миллисекундах
         values.put(TaskDatabaseHelper.COLUMN_IS_COMPLETED, task.isCompleted() ? 1 : 0);
 
         db.insert(TaskDatabaseHelper.TABLE_TASKS, null, values);
@@ -41,6 +43,7 @@ public class TaskRepository {
         String selection = null;
         String[] selectionArgs = null;
         if (dateMillis != null) {
+            // Фильтруем задачи по дате
             selection = TaskDatabaseHelper.COLUMN_DATE + " = ?";
             selectionArgs = new String[]{String.valueOf(dateMillis)};
         }
@@ -70,11 +73,15 @@ public class TaskRepository {
                 boolean showInCalendar = cursor.getInt(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR)) == 1;
                 boolean notify = cursor.getInt(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_NOTIFY)) == 1;
                 boolean isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_IS_COMPLETED)) == 1;
-
+                long dateMillis = cursor.getLong(cursor.getColumnIndexOrThrow(TaskDatabaseHelper.COLUMN_DATE));
                 Task task = new Task(name, description, tags, showInCalendar, notify);
                 task.setId(id);
                 task.setCompleted(isCompleted);
+                Calendar date = Calendar.getInstance();
+                date.setTimeInMillis(dateMillis);
+                task.setDate(date);
                 tasks.add(task);
+
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -90,6 +97,7 @@ public class TaskRepository {
         values.put(TaskDatabaseHelper.COLUMN_TAGS, task.getTags());
         values.put(TaskDatabaseHelper.COLUMN_SHOW_IN_CALENDAR, task.isShowInCalendar() ? 1 : 0);
         values.put(TaskDatabaseHelper.COLUMN_NOTIFY, task.isNotify() ? 1 : 0);
+        values.put(TaskDatabaseHelper.COLUMN_DATE, task.getDate().getTimeInMillis()); // Сохраняем дату в миллисекундах
         values.put(TaskDatabaseHelper.COLUMN_IS_COMPLETED, task.isCompleted() ? 1 : 0);
 
         db.update(TaskDatabaseHelper.TABLE_TASKS, values, TaskDatabaseHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(task.getId())});

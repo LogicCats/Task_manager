@@ -60,7 +60,7 @@ public class StatisticsFragment extends Fragment {
         }
 
         int pendingTasks = totalTasks - completedTasks;
-        int appUsageTime = sharedPreferences.getInt("app_usage_time", 0); // Assume usage time is stored in minutes
+        int appUsageTime = sharedPreferences.getInt("app_usage_time", 0); // Предполагаем, что время использования сохраняется в минутах
 
         totalTasksTextView.setText("Total tasks: " + totalTasks);
         completedTasksTextView.setText("Completed tasks: " + completedTasks);
@@ -68,4 +68,5 @@ public class StatisticsFragment extends Fragment {
         tasksWithNotificationsTextView.setText("Tasks with notifications: " + tasksWithNotifications);
         appUsageTimeTextView.setText("App usage time: " + appUsageTime + " minutes");
     }
+
 }
