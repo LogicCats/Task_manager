@@ -5,24 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/star_white"
+    android:background="@color/background"
     tools:context=".TasksFragment">
 
     <SearchView
         android:id="@+id/SearchViewTasks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:queryBackground="@color/surface"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search tasks..."
+        android:textColor="@color/onSurface"
+        app:iconifiedByDefault="false" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dividerThickness="4dp"
-        android:background="@color/grey_white" />
+        android:background="@color/primaryVariant" />
 
     <ListView
         android:id="@+id/TasksList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:divider="@color/primaryVariant"
+        android:dividerHeight="1dp"
+        android:background="@color/background" />
 
 </LinearLayout>

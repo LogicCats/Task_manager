@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/home"
         android:icon="@drawable/home_24"
-        android:title="Home" />
+        android:title="Home"
+        app:showAsAction="always"
+        android:tint="@color/onPrimary" />
 
     <item
         android:id="@+id/tasks"
         android:icon="@drawable/task_24"
-        android:title="Tasks" />
+        android:title="Tasks"
+        app:showAsAction="always"
+        android:tint="@color/onPrimary" />
 
     <item
         android:id="@+id/statistics"
         android:icon="@drawable/stats_24"
-        android:title="Statistics" />
+        android:title="Statistics"
+        app:showAsAction="always"
+        android:tint="@color/onPrimary" />
 
     <item
         android:id="@+id/calendar"
         android:icon="@drawable/calendar_24"
-        android:title="Calendar" />
+        android:title="Calendar"
+        app:showAsAction="always"
+        android:tint="@color/onPrimary" />
 
     <item
         android:id="@+id/settings"
         android:icon="@drawable/settings_24"
-        android:title="Settings" />
+        android:title="Settings"
+        app:showAsAction="always"
+        android:tint="@color/onPrimary" />
 
 </menu>

@@ -1,7 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.TaskManager" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSurface">#212121</item> <!-- Тёмный цвет поверхности -->
+        <item name="colorOnSurface">#FFFFFF</item> <!-- Белый текст на тёмной поверхности -->
+        <item name="colorPrimaryVariant">#424242</item> <!-- Вариант основного цвета -->
     </style>
 </resources>

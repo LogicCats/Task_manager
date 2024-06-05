@@ -2,45 +2,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <EditText
         android:id="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Название задачи" />
+        android:hint="Название задачи"
+        android:textColor="@color/onSurface"
+        android:backgroundTint="@color/surface" />
 
     <EditText
         android:id="@+id/task_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Описание задачи"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColor="@color/onSurface"
+        android:backgroundTint="@color/surface" />
 
     <EditText
         android:id="@+id/task_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Тэги"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColor="@color/onSurface"
+        android:backgroundTint="@color/surface" />
 
     <CheckBox
         android:id="@+id/show_in_calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Показывать в календаре" />
+        android:text="Показывать в календаре"
+        android:textColor="@color/onSurface" />
 
     <CheckBox
         android:id="@+id/notify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Уведомление" />
+        android:text="Уведомление"
+        android:textColor="@color/onSurface" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dividerThickness="20dp"
-        />
+        android:background="@color/surface" />
 
     <LinearLayout
         android:id="@+id/date_layout"
@@ -52,21 +61,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Дата: "
-            android:textSize="21dp"/>
+            android:textSize="21sp"
+            android:textColor="@color/onSurface" />
 
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Выбрать дату"
-            android:textSize="21dp"/>
+            android:textSize="21sp"
+            android:textColor="@color/onSurface" />
     </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dividerThickness="20dp"
-        />
+        android:background="@color/surface" />
 
     <LinearLayout
         android:id="@+id/time_layout"
@@ -78,28 +89,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Время: "
-            android:textSize="21dp"/>
+            android:textSize="21sp"
+            android:textColor="@color/onSurface" />
 
         <TextView
             android:id="@+id/time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Выбрать время"
-            android:textSize="21dp"/>
+            android:textSize="21sp"
+            android:textColor="@color/onSurface" />
     </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:dividerThickness="20dp"
-        />
+        android:background="@color/surface" />
 
     <Button
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Создать"
-
+        android:textColor="@color/onSurface"
+        android:backgroundTint="@color/greenButtonBackground"
+        android:padding="16dp"
+        android:layout_gravity="center"
         />
 
 </LinearLayout>

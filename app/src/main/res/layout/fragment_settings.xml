@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SettingsFragment"
-    android:background="@color/star_white">
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Управление аккаунтом"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@color/onSurface"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerThickness="24dp"
-            android:background="@color/star_white"/>
+            android:background="@color/background"/>
 
 
 
@@ -67,7 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Общие"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@color/onSurface"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,14 +102,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerThickness="24dp"
-            android:background="@color/star_white"/>
+            android:background="@color/background"/>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Инструменты"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@color/onSurface"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,7 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerThickness="24dp"
-            android:background="@color/star_white"/>
+            android:background="@color/background"/>
 
 
 
@@ -142,7 +145,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="О приложении"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@color/onSurface"/>
 
         <LinearLayout
             android:layout_width="match_parent"

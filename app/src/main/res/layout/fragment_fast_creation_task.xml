@@ -3,25 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background">
 
     <EditText
         android:id="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Название задачи" />
+        android:backgroundTint="@color/primary"
+        android:hint="Название задачи"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/task_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Теги задачи" />
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/primary"
+        android:hint="Теги задачи"
+        android:minHeight="48dp" />
 
     <CheckBox
         android:id="@+id/show_in_calendar_and_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Показывать в календаре и в списке задач до тех пор, пока задача не будет завершена." />
+        android:text="Показывать в календаре и в списке задач до тех пор, пока задача не будет завершена."
+        android:textColor="@color/onSurface"
+        android:layout_marginTop="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,13 +43,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Отмена" />
+            android:text="Отмена"
+            android:textColor="@color/onPrimary"
+            android:backgroundTint="@color/error"
+            android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/create_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Создать" />
+            android:text="Создать"
+            android:textColor="@color/onPrimary"
+            android:backgroundTint="@color/greenButtonBackground" />
+
     </LinearLayout>
 </LinearLayout>

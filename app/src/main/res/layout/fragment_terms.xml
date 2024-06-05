@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <!-- Здесь размещается текст Положений и Условий Пользования в ScrollView -->
     <ScrollView
@@ -13,7 +14,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/terms_and_conditions_text" />
+            android:text="@string/terms_and_conditions_text"
+            android:textColor="@color/onSurface" /> <!-- Цвет текста соответствует цвету onSurface из colors.xml -->
     </ScrollView>
 
     <!-- Кнопка "Вернуться" -->
@@ -22,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Вернуться к настройкам"
-        android:layout_marginBottom="16dp"/> <!-- Отступ снизу -->
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primary" /> <!-- Цвет фона кнопки соответствует основному цвету из colors.xml -->
 
 </LinearLayout>

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/statistics_title"
@@ -11,41 +12,47 @@
         android:layout_height="wrap_content"
         android:text="Statistics"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/primary" />
 
     <TextView
         android:id="@+id/total_tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total tasks: 0"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:textColor="@color/onSurface" />
 
     <TextView
         android:id="@+id/completed_tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Completed tasks: 0"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="@color/onSurface" />
 
     <TextView
         android:id="@+id/pending_tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pending tasks: 0"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="@color/onSurface" />
 
     <TextView
         android:id="@+id/tasks_with_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tasks with notifications: 0"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="@color/onSurface" />
 
     <TextView
         android:id="@+id/app_usage_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="App usage time: 0 minutes"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="@color/onSurface" />
 
 </LinearLayout>

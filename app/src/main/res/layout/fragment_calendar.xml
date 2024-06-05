@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/star_white"
+    android:background="@color/background"
     tools:context=".CalendarFragment">
 
     <LinearLayout
@@ -15,13 +15,14 @@
         <CalendarView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Calendar_panel"/>
+            android:id="@+id/Calendar_panel"
+            android:theme="@style/Widget.MaterialComponents.MaterialCalendar"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerThickness="4dp"
-            android:background="@color/grey_white"/>
+            android:background="@color/background"/>
 
         <ListView
             android:layout_width="match_parent"

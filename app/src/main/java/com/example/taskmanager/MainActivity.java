@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -92,10 +94,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.upper_nav_menu, menu);
+        getMenuInflater().inflate(R.menu.upper_nav_menu, menu);
+
+        // Get the menu items
+        MenuItem fastCreationTaskItem = menu.findItem(R.id.fast_creation_task);
+        MenuItem creationTaskItem = menu.findItem(R.id.creation_task);
+
+        // Set the tint color for the icons
+        Drawable fastCreationTaskIcon = fastCreationTaskItem.getIcon();
+        if (fastCreationTaskIcon != null) {
+            fastCreationTaskIcon.setTint(ContextCompat.getColor(this, R.color.primary));
+            fastCreationTaskItem.setIcon(fastCreationTaskIcon);
+        }
+
+        Drawable creationTaskIcon = creationTaskItem.getIcon();
+        if (creationTaskIcon != null) {
+            creationTaskIcon.setTint(ContextCompat.getColor(this, R.color.primary));
+            creationTaskItem.setIcon(creationTaskIcon);
+        }
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

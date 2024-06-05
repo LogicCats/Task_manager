@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/task_name"
@@ -11,14 +12,16 @@
         android:layout_height="wrap_content"
         android:text="Task Name"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/primaryVariant" />
 
     <TextView
         android:id="@+id/task_tags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Task Tags"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textColor="@color/onSurface" />
 
     <!-- Добавляем кнопку для отображения/скрытия дополнительной информации -->
     <!--<Button
@@ -41,14 +44,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Task Description"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/onSurface" />
 
         <TextView
             android:id="@+id/task_date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Task Date and Time"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/onSurface" />
     </LinearLayout>
 
     <ImageView

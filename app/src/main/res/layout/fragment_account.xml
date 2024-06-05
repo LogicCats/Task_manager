@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background">
 
     <!-- Обертка для элементов интерфейса аккаунта -->
     <LinearLayout
@@ -10,7 +11,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/surface">
 
         <!-- Заголовок "Аккаунт" -->
         <TextView
@@ -19,6 +21,7 @@
             android:text="Аккаунт"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/onSurface"
             android:paddingBottom="16dp"/>
 
         <!-- Аватарка пользователя -->
@@ -37,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="Имя пользователя: user"
             android:textSize="16sp"
+            android:textColor="@color/onSurface"
             android:paddingBottom="4dp"/>
 
         <!-- Email пользователя -->
@@ -46,6 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Email: user@example.com"
             android:textSize="16sp"
+            android:textColor="@color/onSurface"
             android:paddingBottom="16dp"/>
 
         <!-- Кнопка для выбора аватарки из галереи -->
@@ -53,7 +58,9 @@
             android:id="@+id/buttonChooseAvatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Выбрать аватарку"/>
+            android:text="Выбрать аватарку"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/onPrimary"/>
 
         <!-- Другие элементы интерфейса по необходимости -->
 

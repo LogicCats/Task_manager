@@ -2,19 +2,34 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TaskManager" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">@color/star_white</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorError">@color/error</item>
     </style>
 
     <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#ece0d1</item>
-        <item name="colorPrimaryVariant">#A3A3A3</item>
-        <item name="colorOnPrimary">#E3E0E0</item>
+        <item name="colorPrimary">@color/surface</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.Material3.Button.ElevatedButton">
-        <item name="android:backgroundTint">@color/coffee</item>
+        <item name="android:backgroundTint">@color/primary</item>
     </style>
 
     <style name="Theme.TaskManager" parent="Base.Theme.TaskManager" />
+
+    <!-- Dark theme -->
+    <style name="Base.Theme.TaskManager.Dark" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+    </style>
+
+    <style name="Theme.TaskManager.Dark" parent="Base.Theme.TaskManager.Dark" />
 </resources>

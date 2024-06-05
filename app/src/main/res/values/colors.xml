@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary">#0752b0</color> <!-- Основной цвет приложения -->
+    <color name="primaryVariant">#A3A3A3</color> <!-- Вариант основного цвета -->
+    <color name="onPrimary">#FFFFFF</color> <!-- Цвет текста на основном цвете -->
+    <color name="background">#FFFFFF</color> <!-- Цвет фона -->
+    <color name="surface">#ECE0D1</color> <!-- Цвет поверхности -->
+    <color name="onSurface">#000000</color> <!-- Цвет текста на поверхности -->
+    <color name="error">#B00020</color> <!-- Цвет ошибки -->
+    <color name="icLauncherBackground">#0752b0</color> <!-- Цвет иконки лаунчера -->
+    <color name="task_completed">#757575</color> <!-- Новый цвет для состояния "Completed" -->
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="star_white">#E3E0E0</color>
-    <color name="coffee">#ece0d1</color>
-    <color name="grey_white">#A3A3A3</color>
-    <color name="grey_white_text">#74A3A3A3</color>
-    <color name="task_completed">#757575</color>
-    <color name="ic_launcher_background">#0752b0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="greenButtonBackground">#4CAF50</color>
+    <color name="grey_white" />
+
+
 </resources>
